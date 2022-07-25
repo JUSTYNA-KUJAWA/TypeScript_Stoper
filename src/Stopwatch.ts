@@ -12,7 +12,7 @@ interface StopwatchDom {
 abstract class Stopwatch {
 
   protected currentTime: number = 0
-  private timer: null | number = null
+  private timer: null | NodeJS.Timer = null
   protected dom = <StopwatchDom>{}
 
   constructor(element: HTMLDivElement) {
@@ -29,7 +29,9 @@ abstract class Stopwatch {
     Konkretnie do:
     – stopwatch__current-time,
     – wszystkich buttonów stopwatch__actions
-    Wszystkie referencje dla czytelności przechowuj w obiekcie this.dom.
+    Wszystkie refere
+    
+    ncje dla czytelności przechowuj w obiekcie this.dom.
     */
     this.dom.currentTime = <HTMLDivElement>element.querySelector('.stopwatch__current-time');
     this.dom.startBtn = <HTMLButtonElement>element.querySelector('.stopwatch__start-btn');
@@ -66,7 +68,7 @@ abstract class Stopwatch {
     return `${pad0(mm)}:${pad0(ss)}:${pad0(ms).substr(0, 2)}`
   }
 
-  protected renderTime(): void {
+ public renderTime(): void {
     /*
     Funkcja ta powinna renderować w stopwatch__current-time zawartość obiektu this.currentTime.
     Oczywiście wcześniej należy sformatować czas przy użyciu funkcji this.formatTime.
@@ -75,7 +77,8 @@ abstract class Stopwatch {
 
   }
   public start(): void {
-    this.timer = setInterval(this.step, 1)
+    console.log('start');
+    this.timer = setInterval(this.step.bind(this), 1)
 
     /*
     Funkcja ta powinna wystartować interwał, który będzie wykonywał się co milisekundę.
@@ -91,8 +94,8 @@ abstract class Stopwatch {
     Funkcja ta powinna zwiększać liczbę sekund w this.currentTime o jeden, a następnie uruchamiać metodę
     renderującą aktualny czas w HTML-u (this.renderTime).
     */
-    this.currentTime = + 1
-    this.renderTime
+    this.currentTime = this.currentTime + 1
+    this.renderTime();
   }
 
   stop() {
@@ -110,7 +113,7 @@ abstract class Stopwatch {
     Naturalnie powinno to wiązać się również z przerenderowaniem HTML-a (this.renderTime).
     */
     this.currentTime = 0
-    this.renderTime
+    this.renderTime();
   }
 
 }
