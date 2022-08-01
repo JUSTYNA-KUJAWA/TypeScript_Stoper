@@ -1,19 +1,24 @@
-import Stopwatch from './Stopwatch.js'
+import Stopwatch from "./Stopwatch.js";
 
 class StopwatchWithResults extends Stopwatch {
-
-  results: string[] = []
+  results: string[] = [];
 
   constructor(element: HTMLDivElement) {
-    super(element)
-    this.prepareElements(element)
-    this.prepareActions()
+    super(element);
+    this.prepareElements(element);
+    this.prepareActions();
   }
 
   prepareElements(element: HTMLDivElement): void {
-    this.dom.resultsList = <HTMLDivElement>element.querySelector('.stopwatch__results')
-    this.dom.addToListBtn = <HTMLButtonElement>element.querySelector('.stopwatch__add-to-list-btn')
-    this.dom.resetListBtn = <HTMLButtonElement>element.querySelector('.stopwatch__reset-list-btn')
+    this.dom.resultsList = <HTMLDivElement>(
+      element.querySelector(".stopwatch__results")
+    );
+    this.dom.addToListBtn = <HTMLButtonElement>(
+      element.querySelector(".stopwatch__add-to-list-btn")
+    );
+    this.dom.resetListBtn = <HTMLButtonElement>(
+      element.querySelector(".stopwatch__reset-list-btn")
+    );
   }
 
   prepareActions() {
@@ -21,8 +26,8 @@ class StopwatchWithResults extends Stopwatch {
     Funkcja ta powinna dodawać nasłuchwiacze do buttonów this.dom.addToListBtn oraz this.dom.resetListBtn.
     Pierwszy powinien po kliknięciu uruchamiać metodę this.addToList, a druga this.resetList.
     */
-    this.dom.addToListBtn.addEventListener('click', () => this.addToList())
-    this.dom.resetListBtn.addEventListener('click', () => this.resetList())
+    this.dom.addToListBtn.addEventListener("click", () => this.addToList());
+    this.dom.resetListBtn.addEventListener("click", () => this.resetList());
   }
 
   renderList() {
@@ -33,11 +38,11 @@ class StopwatchWithResults extends Stopwatch {
     Każdy jej element powinien być renderowany bez żadnych zmian.
     np. <li>00:12:00</li>
     */
-    this.dom.resultsList.innerHTML = ''
+    this.dom.resultsList.innerHTML = "";
     for (let i: number = 0; i < this.results.length; i++) {
-      const listElement: HTMLLIElement = document.createElement('li');
-      this.dom.resultsList.appendChild(listElement)
-      listElement.innerHTML += this.results[i]
+      const listElement: HTMLLIElement = document.createElement("li");
+      this.dom.resultsList.appendChild(listElement);
+      listElement.innerHTML += this.results[i];
     }
   }
 
@@ -48,20 +53,19 @@ class StopwatchWithResults extends Stopwatch {
     Następnie powinna renderować aktualną listę na stronie (this.renderList).
     */
 
-    const time: Date = new Date(this.currentTime)
-    const timeStr: string = time.toTimeString().split(' ')[0];
-    this.results.push(timeStr)
-    this.renderList
+    const time: Date = new Date(this.currentTime);
+    const timeStr: string = time.toTimeString().split(" ")[0];
+    this.results.push(timeStr);
+    this.renderList;
   }
 
   resetList() {
     /*
     Funkcja ta powinna czyścić tablicę this.results oraz zawartość this.dom.resultsList
     */
-    this.results = []
-    this.dom.resultsList.innerHTML = ''
+    this.results = [];
+    this.dom.resultsList.innerHTML = "";
   }
-
 }
 
-export default StopwatchWithResults
+export default StopwatchWithResults;
